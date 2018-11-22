@@ -28,7 +28,7 @@ exports.create = (req, res, next) => {
 }
 
 exports.findOne = (req, res, next) => {
-   RentedMovie.findOne(req.params.id)
+   RentedMovie.findById(req.params.id)
       .then(rentedMovie => {
          if(!rentedMovie) throw createError(404, "Not Found");
          return res.status(200).json(rentedMovie);

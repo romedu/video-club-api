@@ -11,8 +11,7 @@ exports.find = (req, res, next) => {
 };
 
 exports.create = (req, res, next) => {
-   const {body} = req;
-         
+   const {body} = req;   
    Movie.create(body)
       .then(newMovie => res.status(201).json(newMovie))
       .catch(error => {
@@ -22,7 +21,7 @@ exports.create = (req, res, next) => {
 }
 
 exports.findOne = (req, res, next) => {
-   Movie.findOne(req.params.id)
+   Movie.findById(req.params.id)
       .then(movie => {
          if(!movie) throw createError(404, "Not Found");
          return res.status(200).json(movie);

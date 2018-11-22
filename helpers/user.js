@@ -17,7 +17,7 @@ exports.find = (req, res, next) => {
 };
 
 exports.findOne = (req, res, next) => {
-   User.findOne(req.params.id).populate("rentedMovies").exec()
+   User.findById(req.params.id).populate("rentedMovies").exec()
       .then(user => {
          if(!user) throw createError(404, "Not Found");
          const {username, password, userData} = user;

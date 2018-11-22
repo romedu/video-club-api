@@ -1,6 +1,7 @@
 const router = require("express").Router(),
       helpers = require("../helpers/services");
 
-router.get("/searchMovies", helpers.searchMovies);
+router.post("/searchMovies", helpers.searchMovies);
+router.post("/searchMovieById", helpers.searchMovieById);
 
 module.exports = router;
