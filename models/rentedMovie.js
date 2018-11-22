@@ -27,7 +27,7 @@ const mongoose = require("mongoose"),
             type: Number,
             validate: {
                validator: validators.aWeekOrLess,
-               message: "Only alphanumeric and space characters are allowed"
+               message: "You can't have it rented for more than a week"
             }
         }
       }, {timestamps: {createdAt: 'rentedAt'}});

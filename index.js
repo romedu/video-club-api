@@ -23,6 +23,11 @@ app.use("/api/movies", sanitizeBody, movieRoutes);
 app.use("/api/rentedMovies", checkIfToken, sanitizeBody, rentedMovieRoutes);
 app.use("/api/services", sanitizeBody, servicesRoutes);
 
+app.use((error, req, res, next) => {
+   if(!error.status) error.status = 500;
+   return res.status(error.status).json({message: error.message});
+});
+
 app.listen(PORT || 3000, () => {
    console.log("Server's up"); 
 });
