@@ -25,7 +25,8 @@ app.use("/api/services", sanitizeBody, servicesRoutes);
 
 app.use((error, req, res, next) => {
    if(!error.status) error.status = 500;
-   return res.status(error.status).json({message: error.message});
+   const {status, message} = error;
+   return res.status(error.status).json({message, status});
 });
 
 app.listen(PORT || 3000, () => {
