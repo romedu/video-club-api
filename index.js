@@ -7,6 +7,7 @@ const app = require("express")(),
       userRoutes = require("./routes/user"),
       movieRoutes = require("./routes/movie"),
       rentedMovieRoutes = require("./routes/rentedMovie"),
+      servicesRoutes = require("./routes/services"),
       {sanitizeBody, checkIfToken, checkIfAdmin} = require("./middlewares");
       
 app.use(bodyParser.json());
@@ -16,6 +17,7 @@ app.use("/api/auth", sanitizeBody, authRoutes);
 app.use("/api/users", checkIfToken, checkIfAdmin, sanitizeBody, userRoutes);
 app.use("/api/movies", sanitizeBody, movieRoutes);
 app.use("/api/rentedMovies", checkIfToken, sanitizeBody, rentedMovieRoutes);
+app.use("/api/services", sanitizeBody, servicesRoutes);
 
 app.listen(PORT || 3000, () => {
    console.log("Server's up"); 
