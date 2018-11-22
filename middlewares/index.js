@@ -5,8 +5,7 @@ var jwt = require('jsonwebtoken'),
 exports.checkAdminPassword = (req, res, next) => {
    const {ADMIN_KEY} = process.env,
          {body} = req;
-   
-   if(body.isAdmin){
+   if(body.isAdmin && body.isAdmin !== "false"){
        if(body.adminPassword === ADMIN_KEY) return next();
        else {
            const error = createError(401, "Incorrect Admin's password");
