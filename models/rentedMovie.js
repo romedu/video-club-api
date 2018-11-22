@@ -5,6 +5,11 @@ const mongoose = require("mongoose"),
             type: String,
             required: true
         },
+        imdbID: {
+           type: String, 
+           required: true,
+           unique: true
+        },
         image: String,
         released: String,
         directedBy: String,

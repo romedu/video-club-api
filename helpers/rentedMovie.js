@@ -16,9 +16,11 @@ exports.create = (req, res, next) => {
    
    RentedMovie.create(body)
       .then(newRentedMovie => {
+         const {baseMovie} = req;
          user.rentedMovies.push(newRentedMovie._id);
          user.debt += newRentedMovie.price;
-         return Promise.all([newRentedMovie, user.save()])
+         baseMovie.availableForRent -= baseMovie.availableForRent;
+         return Promise.all([newRentedMovie, user.save(), baseMovie.save()]);
       })
       .then(data => res.status(201).json(data[0]))
       .catch(error => {
