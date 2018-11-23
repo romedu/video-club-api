@@ -7,7 +7,7 @@ exports.find = (req, res, next) => {
    User.find({})
       .then(users => {
          if(!users) throw createError(404, "Not Found");
-         const passwordlessUsers = users.map(user => {
+         const passwordlessUsers = users._doc.map(user => {
             const {username, password, ...userData} = user;
             return userData;
          });
@@ -20,7 +20,7 @@ exports.findOne = (req, res, next) => {
    User.findById(req.params.id).populate("rentedMovies").exec()
       .then(user => {
          if(!user) throw createError(404, "Not Found");
-         const {username, password, userData} = user;
+         const {username, password, ...userData} = user;
          return res.status(200).json(userData)
       })
       .catch(error => next(error));
@@ -31,7 +31,7 @@ exports.update = (req, res, next) => {
    const {username, password, ...body} = req.body;
    User.findByIdAndUpdate(req.params.id, body, {new: true})
       .then(user => {
-         const {password, ...passwordlessUser} = user;
+         const {username, password, ...passwordlessUser} = user;
          return res.status(200).json(passwordlessUser);
       })
       .catch(error => {
