@@ -11,7 +11,7 @@ exports.find = (req, res, next) => {
             const {username, password, ...userData} = user;
             return userData;
          });
-         return res.status(200).json({users: passwordlessUsers});
+         return res.status(200).json(passwordlessUsers);
       })
       .catch(error => next(error));
 };
@@ -21,7 +21,7 @@ exports.findOne = (req, res, next) => {
       .then(user => {
          if(!user) throw createError(404, "Not Found");
          const {username, password, userData} = user;
-         return res.status(200).json({user: userData})
+         return res.status(200).json(userData)
       })
       .catch(error => next(error));
 };
@@ -32,7 +32,7 @@ exports.update = (req, res, next) => {
    User.findByIdAndUpdate(req.params.id, body, {new: true})
       .then(user => {
          const {password, ...passwordlessUser} = user;
-         return res.status(200).json({user: passwordlessUser});
+         return res.status(200).json(passwordlessUser);
       })
       .catch(error => {
          error.status = 409;
