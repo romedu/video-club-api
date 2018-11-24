@@ -29,10 +29,13 @@ exports.create = (req, res, next) => {
       });
 }
 
+//THE RENTEDBY PROPERTY RETURNS WITHOUT THE USERNAME AND PASSWORD
 exports.findOne = (req, res, next) => {
-   RentedMovie.findById(req.params.id)
+   RentedMovie.findById(req.params.id).populate("rentedBy").exec()
       .then(rentedMovie => {
          if(!rentedMovie) throw createError(404, "Not Found");
+         const {username, password, ...passwordlessUser} = rentedMovie.rentedBy;
+         rentedMovie.rentedBy = passwordlessUser;
          return res.status(200).json(rentedMovie);
       })
       .catch(error => next(error));

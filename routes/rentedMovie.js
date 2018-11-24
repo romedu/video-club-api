@@ -5,7 +5,7 @@ const router = require("express").Router(),
 
 router.route("/")
    .get(helpers.find)
-   .post(getUser,movieMiddleware.checkIfAvailable, helpers.create);
+   .post(getUser, movieMiddleware.checkIfAvailable, helpers.create);
 
 router.route("/:id")
    .get(helpers.findOne)
