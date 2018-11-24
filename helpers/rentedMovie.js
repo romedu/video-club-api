@@ -19,7 +19,7 @@ exports.create = (req, res, next) => {
          const {baseMovie} = req;
          user.rentedMovies.push(newRentedMovie._id);
          user.debt += newRentedMovie.price;
-         baseMovie.availableForRent -= baseMovie.availableForRent;
+         baseMovie.availableForRent--;
          return Promise.all([newRentedMovie, user.save(), baseMovie.save()]);
       })
       .then(data => res.status(201).json(data[0]))
