@@ -1,10 +1,11 @@
 const router = require("express").Router(),
       helpers = require("../helpers/rentedMovie"),
-      {checkIfAdmin, getUser} = require("../middlewares");
+      {checkIfAdmin, getUser} = require("../middlewares"),
+      movieMiddleware = require("../middlewares/movie");
 
 router.route("/")
    .get(helpers.find)
-   .post(getUser, helpers.create);
+   .post(getUser,movieMiddleware.checkIfAvailable, helpers.create);
 
 router.route("/:id")
    .get(helpers.findOne)

@@ -24,6 +24,7 @@ app.use("/api/rentedMovies", checkIfToken, sanitizeBody, rentedMovieRoutes);
 app.use("/api/services", sanitizeBody, servicesRoutes);
 
 app.use((error, req, res, next) => {
+   if(!error) return next();
    if(!error.status) error.status = 500;
    const {status, message} = error;
    return res.status(error.status).json({message, status});
