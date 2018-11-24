@@ -56,10 +56,11 @@ exports.update = (req, res, next) => {
 exports.delete = (req, res, next) => {
    RentedMovie.findByIdAndRemove(req.parms.id)
       .then(exRentedMovie => {
-         const {user} = req;
+         const {user, baseMovie} = req;
          user.rentedMovies.pull(exRentedMovie._id);
          user.debt -= exRentedMovie.price;
-         return Promise.all([exRentedMovie, user.save()]);
+         baseMovie.availableForRent++;
+         return Promise.all([exRentedMovie, user.save(), baseMovie.save()]);
       })
       .then(data => res.status(200).json(data[0]))
       .catch(error => next(error));

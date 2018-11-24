@@ -10,6 +10,6 @@ router.route("/")
 router.route("/:id")
    .get(helpers.findOne)
    .patch(checkIfAdmin, helpers.update)
-   .delete(checkIfAdmin, getUser, helpers.delete);
+   .delete(checkIfAdmin, getUser, movieMiddleware.getMovie, helpers.delete);
 
 module.exports = router;
