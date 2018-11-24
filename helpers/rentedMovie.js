@@ -54,7 +54,7 @@ exports.update = (req, res, next) => {
 }
 
 exports.delete = (req, res, next) => {
-   RentedMovie.findByIdAndRemove(req.parmas.id)
+   RentedMovie.findByIdAndRemove(req.params.id)
       .then(exRentedMovie => {
          const {user, baseMovie} = req;
          user.rentedMovies.pull(exRentedMovie._id);
