@@ -34,7 +34,9 @@ exports.findOne = (req, res, next) => {
    RentedMovie.findById(req.params.id).populate("rentedBy").exec()
       .then(rentedMovie => {
          if(!rentedMovie) throw createError(404, "Not Found");
-         const {username, password, ...passwordlessUser} = rentedMovie.rentedBy;
+         const {username, password, ...passwordlessUser} = rentedMovie.rentedBy._doc;
+         console.log("rentedBy", rentedMovie.rentedBy);
+         console.log("passwordLess", passwordlessUser);
          rentedMovie.rentedBy = passwordlessUser;
          return res.status(200).json(rentedMovie);
       })
