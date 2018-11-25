@@ -57,7 +57,7 @@ exports.delete = (req, res, next) => {
    RentedMovie.findByIdAndRemove(req.params.id)
       .then(exRentedMovie => {
          const {user, baseMovie} = req;
-         user.rentedMovies.pull(exRentedMovie._id);
+         user.rentedMovies.pull(req.params.id);
          user.debt -= exRentedMovie.price;
          baseMovie.availableForRent++;
          return Promise.all([exRentedMovie, user.save(), baseMovie.save()]);

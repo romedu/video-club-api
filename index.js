@@ -27,7 +27,7 @@ app.use((error, req, res, next) => {
    if(!error) return next();
    if(!error.status) error.status = 500;
    const {status, message} = error;
-   return res.status(error.status).json({message, status});
+   return res.json({message, status});
 });
 
 app.listen(PORT || 3000, () => {

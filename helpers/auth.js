@@ -53,7 +53,7 @@ exports.register = async function(req, res, next){
 
 exports.verifyToken = (req, res) => {
    const {user} = req;
-   res.status(200).json(user);
+   return res.status(200).json(user);
 };
 
 module.exports = exports;
