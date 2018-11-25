@@ -25,7 +25,10 @@ app.use("/api/services", sanitizeBody, servicesRoutes);
 
 app.use((error, req, res, next) => {
    if(!error) return next();
-   if(!error.status) error.status = 500;
+   if(!error.status){
+      error.status = 500;
+      error.message = "Internal server error";
+   } 
    const {status, message} = error;
    return res.json({message, status});
 });
