@@ -3,7 +3,7 @@ const axios = require("axios"),
 
 exports.searchMovies = (req, res, next) => {
     const {title, year} = req.body,
-          searchQuery = year && (year < new Date.getFullYear()) ? `s=${title}&y=${year}` : `s=${title}`;
+          searchQuery = year && (year < new Date().getFullYear()) ? `s=${title}&y=${year}` : `s=${title}`;
 
     axios.get(`http://www.omdbapi.com/?apikey=thewdb&${searchQuery}`)
       .then(response => response.data.Search)
