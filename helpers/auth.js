@@ -12,7 +12,7 @@ const createToken = userData => {
 exports.login = async function(req, res, next){
    try {
       const {username} = req.body; 
-      const user = await DB.User.findOne({username});
+      const user = await DB.User.findOne({username}).populate("rentedMovies").exec();
       const {password, ...userData} = user._doc;
       const isMatch = await user.comparePassword(req.body.password);
     
@@ -34,7 +34,7 @@ exports.login = async function(req, res, next){
 
 exports.register = async function(req, res, next){
    try {
-      const user = await DB.User.create(req.body),
+      const user = await DB.User.create(req.body).populate("rentedMovies").exec(),
             {password, ...userData} = user._doc,
             token = createToken(userData);
             userData.token = token;

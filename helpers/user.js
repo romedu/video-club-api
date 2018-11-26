@@ -4,7 +4,7 @@ const {User} = require("../models"),
 //ALL THE USERS RETURNS WITHOUT THEIR USERNAME AND PASSWORD
 
 exports.find = (req, res, next) => {
-   User.find({})
+   User.find({}).populate("rentedMovies").exec()
       .then(users => {
          if(!users) throw createError(404, "Not Found");
          const passwordlessUsers = users.map(user => {
