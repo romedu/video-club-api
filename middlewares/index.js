@@ -54,7 +54,7 @@ exports.sanitizeBody = (req, res, next) => {
    if(!req.body) next();
    
    for(const field in req.body){
-       req.body[field] = req.sanitize(req.body[field]);
+       req.body[field] = typeof req.body[field] === "string" ? req.sanitize(req.body[field].trim()) : req.sanitize(req.body[field]);
    }
    return next();
 };
