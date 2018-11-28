@@ -40,6 +40,12 @@ exports.checkIfAdmin = (req, res, next) => {
    return next(error);
 };
 
+exports.checkIfSameUser = (req, res, next) => {
+   if(req.user.isAdmin || req.user._id === req.params.id) return next();
+   const error = createError(401, "Not authorized to proceed");
+   return next(error);
+}
+
 exports.getUser = (req, res, next) => {
    User.findById(req.user._id)
       .then(user => {

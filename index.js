@@ -10,7 +10,7 @@ const app = require("express")(),
       movieRoutes = require("./routes/movie"),
       rentedMovieRoutes = require("./routes/rentedMovie"),
       servicesRoutes = require("./routes/services"),
-      {sanitizeBody, checkIfToken, checkIfAdmin} = require("./middlewares");
+      {sanitizeBody, checkIfToken} = require("./middlewares");
 
 app.use(cors());      
 app.use(bodyParser.json());
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(expressSanitizer());
 
 app.use("/api/auth", sanitizeBody, authRoutes);
-app.use("/api/users", checkIfToken, checkIfAdmin, sanitizeBody, userRoutes);
+app.use("/api/users", checkIfToken, sanitizeBody, userRoutes);
 app.use("/api/movies", sanitizeBody, movieRoutes);
 app.use("/api/rentedMovies", checkIfToken, sanitizeBody, rentedMovieRoutes);
 app.use("/api/services", sanitizeBody, servicesRoutes);
