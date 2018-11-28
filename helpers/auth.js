@@ -34,7 +34,7 @@ exports.login = async function(req, res, next){
 
 exports.register = async function(req, res, next){
    try {
-      const user = await DB.User.create(req.body).populate("rentedMovies").exec(),
+      const user = await DB.User.create(req.body),
             {password, ...userData} = user._doc,
             token = createToken(userData);
             userData.token = token;
