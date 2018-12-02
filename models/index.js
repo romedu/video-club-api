@@ -1,7 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require("mongoose"),
+      {DBURL} = process.env;
 
 mongoose.set("debug", true);
-mongoose.connect("mongodb://localhost/video-club", {useNewUrlParser: true});
+mongoose.connect(DBURL, {useNewUrlParser: true});
 mongoose.Promise = Promise;
 
 exports.User = require("./user");
