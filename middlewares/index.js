@@ -19,6 +19,8 @@ exports.checkIfToken = (req, res, next) => {
    const token = req.get("Authorization"),
          {SECRET_KEY} = process.env;
    
+   console.log(token);
+
    if(!token){
        const error = createError(400, "A valid token is required");
        return next(error);
