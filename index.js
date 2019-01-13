@@ -10,7 +10,7 @@ const app = require("express")(),
       servicesRoutes = require("./routes/services"),
       {sanitizeBody, checkIfToken} = require("./middlewares");
 
-app.use(cors({allowedHeaders: "*"}));      
+app.use(cors({allowedHeaders: ['Content-Type', 'Authorization']}));      
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(expressSanitizer());
