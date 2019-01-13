@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 const app = require("express")(),
       cors = require("cors"),
       bodyParser = require("body-parser"),
@@ -12,7 +10,7 @@ const app = require("express")(),
       servicesRoutes = require("./routes/services"),
       {sanitizeBody, checkIfToken} = require("./middlewares");
 
-app.use(cors());      
+app.use(cors({allowedHeaders: "*"}));      
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(expressSanitizer());
