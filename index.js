@@ -9,10 +9,10 @@ const app = require("express")(),
       rentedMovieRoutes = require("./routes/rentedMovie"),
       servicesRoutes = require("./routes/services"),
       {sanitizeBody, checkIfToken} = require("./middlewares");
-
-app.use(cors({allowedHeaders: 'Authorization'}));      
+   
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(cors({allowedHeaders: 'Authorization'}));   
 app.use(expressSanitizer());
 
 app.use("/api/auth", sanitizeBody, authRoutes);
