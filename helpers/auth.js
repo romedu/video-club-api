@@ -1,25 +1,30 @@
 const DB = require('../models'),
       jwt = require('jsonwebtoken'),
-      {createError} = require("./error");
+      {createError} = require("./error"),
+      {calculateDebt} = require("./index");
 
-const createToken = userData => {
+const processUserData = ({_id, username, isAdmin, debt, rentedMovies}) => {
    const {SECRET_KEY} = process.env,
+         userData = {
+            _id,
+            username,
+            isAdmin,
+            debt: calculateDebt(debt, rentedMovies)
+         },
          token = jwt.sign(userData, SECRET_KEY, {expiresIn: 60 * 60});
    
-   return token;      
+   return {userData, token};      
 };
 
 exports.login = async function(req, res, next){
    try {
       const {username} = req.body; 
       const user = await DB.User.findOne({username}).populate("rentedMovies").exec();
-      const {password, ...userData} = user._doc;
       const isMatch = await user.comparePassword(req.body.password);
     
       if(isMatch){
-         const token = createToken(userData);
-         userData.token = token;
-         return res.status(200).json(userData);
+         const processedUser = processUserData(user._doc);
+         return res.status(200).json(processedUser);
       } 
       else {
          const error = createError(400, "Invalid Username/Password");
@@ -35,11 +40,9 @@ exports.login = async function(req, res, next){
 exports.register = async function(req, res, next){
    try {
       const user = await DB.User.create(req.body),
-            {password, ...userData} = user._doc,
-            token = createToken(userData);
-            userData.token = token;
-            
-      return res.status(201).json(userData);
+            processedUser = processUserData(user._doc);
+
+      return res.status(201).json(processedUser);
    }
    catch (error){
       if(error.code === 11000){
