@@ -13,7 +13,7 @@ const processUserData = ({_id, username, isAdmin, debt, rentedMovies}) => {
          },
          token = jwt.sign(userData, SECRET_KEY, {expiresIn: 60 * 60});
    
-   return {userData, token};      
+   return {...userData, token};      
 };
 
 exports.login = async function(req, res, next){

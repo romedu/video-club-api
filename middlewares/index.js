@@ -16,7 +16,7 @@ exports.checkAdminPassword = (req, res, next) => {
 };
 
 exports.checkIfToken = (req, res, next) => {
-   const {token} = req.query,
+   const token = req.get("Authorization"),
          {SECRET_KEY} = process.env;
    
    console.log(token);
