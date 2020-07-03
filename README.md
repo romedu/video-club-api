@@ -9,7 +9,7 @@ This api allows you to search and "rent" your favorite movies and video games.
 This route is used to handle authentication and token validation.
 **Base route: /api/auth**
 
-| PATH         | METHOD | PAYLOAD                       | RESPONSE                              | Auth Required |
+| PATH         | METHOD | PAYLOAD                       | RESPONSE                              | AUTH REQUIRED |
 | ------------ | ------ | ----------------------------- | ------------------------------------- | ------------- |
 | /login       | POST   | [Login](#login_payload)       | [Login](#auth_response)               | FALSE         |
 | /register    | POST   | [Register](#register_payload) | [Register](#auth_response)            | FALSE         |
