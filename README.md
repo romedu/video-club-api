@@ -56,11 +56,11 @@ This route is used to handle authentication and token validation.
 
 ```ts
 {
-	token: String;
-	_id: String;
-	username: String;
-	isAdmin: Boolean;
-	debt: Number;
+	token: String,
+	_id: String,
+	username: String,
+	isAdmin: Boolean,
+	debt: Number
 }
 ```
 
