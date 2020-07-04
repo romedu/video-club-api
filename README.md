@@ -2,7 +2,7 @@
 
 This api allows you to search and "rent" your favorite movies and video games.
 
-### Routes
+## Routes
 
 #### Auth
 
@@ -25,7 +25,7 @@ This route is used to fetch one or multiple movies/video games.
 | /searchMovies    | POST   | [Search Movies](#search_movies_payload) | [Search Movies](#search_movies_response) | FALSE         |
 | /searchMovieById | POST   | [Search Movie](#search_movie_payload)   | [Search Movie](#search_movie_response)   | FALSE         |
 
-### Payload References
+## Payload References
 
 #### <a name="login_payload"></a> Login
 
@@ -68,7 +68,7 @@ This route is used to fetch one or multiple movies/video games.
 }
 ```
 
-### Response References
+## Response References
 
 #### <a name="error_response"></a> Error
 
