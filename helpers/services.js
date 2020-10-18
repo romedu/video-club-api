@@ -1,5 +1,6 @@
 const axios = require("axios"), 
       {createError} = require("./error");
+const { response } = require("express");
 
 exports.searchMovies = (req, res, next) => {
     const {title, year} = req.body,
@@ -20,6 +21,22 @@ exports.searchMovieById = (req, res, next) => {
    axios.get(`http://www.omdbapi.com/?apikey=thewdb&i=${imdbID}&plot=full`)
       .then(response => response.data)
       .then(movie => res.status(200).json(movie))
+      .catch(error => {
+         error = createError(404, "Not Found");
+         return next(error);
+      })
+};
+
+exports.searchManyMovies = (req, res, next) => {
+   const {body} = req; 
+   let moviesId = typeof body.moviesId === "string" ? body.moviesId.split(",") : [];
+   let moviesFetchReqs = moviesId.map(movieId => axios.get(`http://www.omdbapi.com/?apikey=thewdb&i=${movieId}&plot=full`));
+
+   Promise.all(moviesFetchReqs)
+      .then(responses => responses.map(({data}) => data))
+      .then(movies => {
+         res.status(200).json(movies)
+      })
       .catch(error => {
          error = createError(404, "Not Found");
          return next(error);

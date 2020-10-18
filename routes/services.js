@@ -3,5 +3,6 @@ const router = require("express").Router(),
 
 router.post("/searchMovies", helpers.searchMovies);
 router.post("/searchMovieById", helpers.searchMovieById);
+router.post("/searchManyMovies", helpers.searchManyMovies);
 
 module.exports = router;
